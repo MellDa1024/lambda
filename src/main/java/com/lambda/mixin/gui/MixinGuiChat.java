@@ -1,6 +1,6 @@
 package com.lambda.mixin.gui;
 
-import com.lambda.client.command.CommandManager;
+import com.lambda.client.gui.mc.KoreanGuiChat;
 import com.lambda.client.gui.mc.LambdaGuiChat;
 import com.lambda.client.util.Wrapper;
 import net.minecraft.client.gui.GuiChat;
@@ -19,13 +19,15 @@ public abstract class MixinGuiChat extends GuiScreen {
     @Shadow private String historyBuffer;
     @Shadow private int sentHistoryCursor;
 
-    @Inject(method = "keyTyped(CI)V", at = @At("RETURN"))
-    public void returnKeyTyped(char typedChar, int keyCode, CallbackInfo info) {
+    @Inject(method = "initGui", at = @At("RETURN"))
+    public void returnInitGui(CallbackInfo info) {
         GuiScreen currentScreen = Wrapper.getMinecraft().currentScreen;
-        if (currentScreen instanceof GuiChat && !(currentScreen instanceof LambdaGuiChat)
-            && inputField.getText().startsWith(CommandManager.INSTANCE.getPrefix())) {
-            Wrapper.getMinecraft().displayGuiScreen(new LambdaGuiChat(inputField.getText(), historyBuffer, sentHistoryCursor));
+        if (currentScreen instanceof GuiChat) {
+            if (!(currentScreen instanceof KoreanGuiChat) && !(currentScreen instanceof LambdaGuiChat)) {
+                Wrapper.getMinecraft().displayGuiScreen(
+                    new KoreanGuiChat(inputField.getText(), null, historyBuffer, sentHistoryCursor)
+                );
+            }
         }
     }
-
 }

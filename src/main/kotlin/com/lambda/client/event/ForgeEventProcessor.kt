@@ -5,7 +5,7 @@ import com.lambda.client.event.events.BaritoneCommandEvent
 import com.lambda.client.event.events.ConnectionEvent
 import com.lambda.client.event.events.RenderWorldEvent
 import com.lambda.client.event.events.ResolutionUpdateEvent
-import com.lambda.client.gui.mc.LambdaGuiChat
+import com.lambda.client.gui.mc.KoreanGuiChat
 import com.lambda.client.module.ModuleManager
 import com.lambda.client.util.Wrapper
 import com.lambda.client.util.graphics.LambdaTessellator
@@ -75,7 +75,7 @@ internal object ForgeEventProcessor {
             val prefix = CommandManager.prefix
             val typedChar = Keyboard.getEventCharacter().toString()
             if (prefix.length == 1 && typedChar.equals(CommandManager.prefix, true)) {
-                mc.displayGuiScreen(LambdaGuiChat(CommandManager.prefix))
+                mc.displayGuiScreen(KoreanGuiChat(CommandManager.prefix))
             }
         }
 

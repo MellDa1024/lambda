@@ -106,6 +106,8 @@ dependencies {
 
     jarLibs 'com.github.cbyrneee:DiscordIPC:e18542f600'
 
+    jarLibs 'com.github.kimcore:inko.kt:1.2'
+
     // Add them back to compileOnly (provided)
     compileOnly "org.jetbrains.kotlin:kotlin-stdlib-common:$kotlinVersion"
     compileOnly 'org.jetbrains:annotations:23.0.0'

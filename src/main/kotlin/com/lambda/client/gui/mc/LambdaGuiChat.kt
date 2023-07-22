@@ -14,17 +14,20 @@ import com.lambda.client.util.math.Vec2d
 import com.lambda.client.util.threads.defaultScope
 import kotlinx.coroutines.launch
 import net.minecraft.client.gui.GuiChat
+import net.minecraft.client.gui.GuiTextField
 import org.lwjgl.input.Keyboard
 import kotlin.math.min
 
 class LambdaGuiChat(
-    startStringIn: String,
+    private val inputFieldd: GuiTextField,
     private val historyBufferIn: String? = null,
     private val sentHistoryCursorIn: Int? = null
-) : GuiChat(startStringIn) {
+) : GuiChat(inputFieldd.text) {
 
     override fun initGui() {
         super.initGui()
+        inputField = inputFieldd
+
         historyBufferIn?.let { historyBuffer = it }
         sentHistoryCursorIn?.let { sentHistoryCursor = it }
     }
@@ -79,7 +82,7 @@ class LambdaGuiChat(
     }
 
     private fun displayNormalChatGUI() {
-        GuiChat(inputField.text).also {
+        KoreanGuiChat(inputField.text, inputField).also {
             mc.displayGuiScreen(it)
             it.historyBuffer = this.historyBuffer
             it.sentHistoryCursor = this.sentHistoryCursor
